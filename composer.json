@@ -17,5 +17,7 @@
             "email": "matt@bueller.ca"
         }
     ],
-    "require": {}
+    "require": {
+        "symfony/yaml": "^3.2"
+    }
 }
