@@ -31,12 +31,9 @@ class FileLocator implements LocatorInterface
      */
     public function __construct(array $directories)
     {
-        foreach ($directories as $dir) {
-            if (!file_exists($dir)) {
-                throw new InvalidArgumentException('directory "'.$dir.'" does not exist');
-            }
+        foreach ($directories as $directory) {
+            $directory = rtrim($directory, '/\\');
         }
-
         $this->directories = $directories;
     }
 

@@ -46,15 +46,5 @@ class FileLocatorTest extends PHPUnit_Framework_TestCase
         $locator = new FileLocator([vfsStream::url('root')]);
         $locator->locate('');
     }
-
-    /**
-     * @depends testLocate
-     * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage directory "vfs://root/foo" does not exist
-     */
-    public function testConstructWithNonExistentDirectory()
-    {
-        $locator = new FileLocator([vfsStream::url('root').'/foo']);
-    }
 }
 
