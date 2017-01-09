@@ -104,8 +104,6 @@ class ConfigurationTest extends PHPUnit_Framework_TestCase
 
     /**
      * @depends testLoadWithKey
-     * @expectedException MattFerris\Configuration\KeyDoesNotExistException
-     * @expectedExceptionMessage key "foo" does not exist
      */
     public function testLoadWithNonExistentKey()
     {
@@ -113,6 +111,7 @@ class ConfigurationTest extends PHPUnit_Framework_TestCase
         $loader = $this->makeLoader([]);
         $config = new Configuration($locator, $loader);
         $config->load('foo.php', 'foo');
+        $this->assertTrue($config->has('foo'));
     }
 
     /**
@@ -188,6 +187,25 @@ class ConfigurationTest extends PHPUnit_Framework_TestCase
         $config->load('foo.php')->import($importer, 'foo');
 
         $this->assertEquals($config->get('foo.baz'), 'bif');
+    }
+
+    /**
+     * @depends testImportWithKey
+     */
+    public function testImportWithNonExistentKey()
+    {
+        $locator = $this->makeLocator('foo.php');
+        $loader = $this->makeLoader(['foo' => 'bar']);
+
+        $importer = $this->createMock(ConfigurationInterface::class);
+        $importer->expects($this->once())
+            ->method('get')
+            ->willReturn([]);
+
+        $config = new Configuration($locator, $loader);
+        $config->load('foo.php')->import($importer, 'foo');
+
+        $this->assertTrue($config->has('foo'));
     }
 }
 

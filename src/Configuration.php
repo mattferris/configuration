@@ -69,6 +69,17 @@ class Configuration implements ConfigurationInterface
             throw new ResourceNotFoundException($resources);
         }
 
+        // create key if it doesn't exist
+        if (!is_null($key) && !$this->has($key)) {
+            if (strpos($key, '.') === false) {
+                $this->config[$key] = [];
+            } else {
+                list($parent, $child) = $this->getParentChildKeys($key);
+                $config = $this->resolveKey($parent);
+                $config[$child] = [];
+            }
+        }
+
         // parse the resource and merge the result
         $result = $this->loader->load($resource);
         $this->merge($key, $result);
@@ -106,6 +117,17 @@ class Configuration implements ConfigurationInterface
      */
     public function import(ConfigurationInterface $importer, $key = null)
     {
+        // create key if it doesn't exist
+        if (!is_null($key) && !$this->has($key)) {
+            if (strpos($key, '.') === false) {
+                $this->config[$key] = [];
+            } else {
+                list($parent, $child) = $this->getParentChildKeys($key);
+                $config = $this->resolveKey($parent);
+                $config[$child] = [];
+            }
+        }
+
         $this->merge($key, $importer->get());
         return $this;
     }
