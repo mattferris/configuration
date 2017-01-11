@@ -52,5 +52,12 @@ interface ConfigurationInterface
      * @param string $key An optional key to import to
      */
     public function import(ConfigurationInterface $importer, $key = null);
+
+    /**
+     * Get a new empty instance of the current configuration object.
+     *
+     * @return ConfigurationInterface The new instance
+     */
+    public function newInstance();
 }
 

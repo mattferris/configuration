@@ -226,5 +226,17 @@ class ConfigurationTest extends PHPUnit_Framework_TestCase
 
         $this->assertTrue($config->has('foo'));
     }
+
+    public function testNewInstance()
+    {
+        $locator = $this->createMock(LocatorInterface::class);
+        $loader = $this->createMock(LoaderInterface::class);
+
+        $config = new Configuration($locator, $loader);
+        $new = $config->newInstance();
+
+        $this->assertInstanceOf(Configuration::class, $new);
+        $this->assertFalse($config === $new);
+    }
 }
 

@@ -133,6 +133,16 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
+     * {@inheritDoc}
+     */
+    public function newInstance()
+    {
+        $new = clone $this;
+        $this->config = [];
+        return $new;
+    }
+
+    /**
      * Get the locator used by the instance.
      *
      * @return LocatorInterface The loader used by the instance
