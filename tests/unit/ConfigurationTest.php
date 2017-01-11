@@ -78,6 +78,25 @@ class ConfigurationTest extends PHPUnit_Framework_TestCase
 
     /**
      * @depends testLoad
+     * @expectedException MattFerris\Configuration\ResourceNotFoundException
+     * @expectedExceptionMessage resource(s) "foo.php" could not be found
+     */
+    public function testLoadWithNonExistentResource()
+    {
+        $locator = $this->createMock(LocatorInterface::class);
+        $locator->expects($this->once())
+            ->method('locate')
+            ->with('foo.php')
+            ->willReturn(false);
+
+        $loader = $this->createMock(LoaderInterface::class);
+
+        $config = new Configuration($locator, $loader);
+        $config->load('foo.php');
+    }
+
+    /**
+     * @depends testLoad
      */
     public function testLoadWithKey()
     {
