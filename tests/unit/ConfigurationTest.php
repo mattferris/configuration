@@ -229,14 +229,17 @@ class ConfigurationTest extends PHPUnit_Framework_TestCase
 
     public function testNewInstance()
     {
-        $locator = $this->createMock(LocatorInterface::class);
-        $loader = $this->createMock(LoaderInterface::class);
+        $locator = $this->makeLocator('foo.php');
+        $loader = $this->makeLoader(['foo' => 'bar']);
 
         $config = new Configuration($locator, $loader);
+        $config->load('foo.php');
         $new = $config->newInstance();
 
         $this->assertInstanceOf(Configuration::class, $new);
         $this->assertFalse($config === $new);
+        $this->assertTrue($config->has('foo'));
+        $this->assertFalse($new->has('foo'));
     }
 
     public function testGetWithNullValueForKey()

@@ -138,7 +138,7 @@ class Configuration implements ConfigurationInterface
     public function newInstance()
     {
         $new = clone $this;
-        $this->config = [];
+        $new->config = [];
         return $new;
     }
 
