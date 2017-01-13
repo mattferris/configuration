@@ -184,7 +184,7 @@ class Configuration implements ConfigurationInterface
         } else {
 
             // key is not compound, so just check if it exists and get value
-            if (!isset($this->config[$key]) || !array_key_exists($key, $this->config)) {
+            if (!isset($this->config[$key]) && !array_key_exists($key, $this->config)) {
                 throw new KeyDoesNotExistException($key);
             }
             $config = &$this->config[$key];
@@ -224,7 +224,7 @@ class Configuration implements ConfigurationInterface
         } elseif (strpos($key, '.') === false) {
 
             // non-compound key, just merge key with incoming data
-            if (!isset($this->config[$key]) || !array_key_exists($key, $this->config)) {
+            if (!isset($this->config[$key]) && !array_key_exists($key, $this->config)) {
                 throw new KeyDoesNotExistException($key);
             }
 

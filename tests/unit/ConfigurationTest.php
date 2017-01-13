@@ -238,5 +238,34 @@ class ConfigurationTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf(Configuration::class, $new);
         $this->assertFalse($config === $new);
     }
+
+    public function testGetWithNullValueForKey()
+    {
+        $locator = $this->makeLocator('foo.php');
+        $loader = $this->makeLoader(['foo' => null]);
+
+        $config = new Configuration($locator, $loader);
+        $config->load('foo.php');
+
+        $this->assertNull($config->get('foo'));
+    }
+
+    public function testImportWithNullValueForKey()
+    {
+        $locator = $this->makeLocator('foo.php');
+        $loader = $this->makeLoader(['foo' => null]);
+
+        $importer = $this->createMock(ConfigurationInterface::class);
+        $importer->expects($this->once())
+            ->method('get')
+            ->willReturn(['baz' => 'bif']);
+
+        $config = new Configuration($locator, $loader);
+        $config->load('foo.php');
+
+        $config->import($importer, 'foo');
+
+        $this->assertEquals($config->get('foo.baz'), 'bif');
+    }
 }
 
