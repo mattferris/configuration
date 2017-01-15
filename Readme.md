@@ -1,6 +1,8 @@
 Configuration
 =============
 
+[![Build Status](https://travis-ci.org/mattferris/configuration.svg?branch=master)](https://travis-ci.org/mattferris/configuration)
+
 A configuration management library.
 
 ```
