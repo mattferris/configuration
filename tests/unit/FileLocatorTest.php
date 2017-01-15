@@ -27,6 +27,18 @@ class FileLocatorTest extends PHPUnit_Framework_TestCase
 
     /**
      * @depends testLocate
+     */
+    public function testLocateReturnsFirstMatch()
+    {
+        $base = vfsStream::url('root');
+        file_put_contents("$base/A/foo.php", 'foo');
+
+        $locator = new FileLocator(["$base/A", "$base/B"]);
+        $this->assertEquals($locator->locate('foo.php')->getPath(), "$base/A/foo.php");
+    }
+
+    /**
+     * @depends testLocate
      * @expectedException InvalidArgumentException
      * @expectedExceptionMessage resource must be a non-empty string
      */

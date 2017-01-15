@@ -50,6 +50,7 @@ class FileLocator implements LocatorInterface
         foreach ($this->directories as $dir) {
             if (file_exists($dir.DIRECTORY_SEPARATOR.$resource)) {
                 $path = $dir.DIRECTORY_SEPARATOR.$resource;
+                break;
             }
         }
 
