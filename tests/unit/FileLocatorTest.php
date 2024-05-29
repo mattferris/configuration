@@ -4,7 +4,7 @@ use MattFerris\Configuration\Locators\FileLocator;
 use MattFerris\Configuration\Resources\FileResource;
 use org\bovigo\vfs\vfsStream;
 
-class FileLocatorTest extends PHPUnit_Framework_TestCase
+class FileLocatorTest extends PHPUnit\Framework\TestCase
 {
     public function testLocate()
     {
@@ -44,6 +44,9 @@ class FileLocatorTest extends PHPUnit_Framework_TestCase
      */
     public function testLocateWithNonStringResource()
     {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('resource must be a non-empty string');
+
         $locator = new FileLocator([vfsStream::url('root')]);
         $locator->locate([]);
     }
@@ -55,6 +58,9 @@ class FileLocatorTest extends PHPUnit_Framework_TestCase
      */
     public function testLocateWithEmtpyStringResource()
     {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('resource must be a non-empty string');
+
         $locator = new FileLocator([vfsStream::url('root')]);
         $locator->locate('');
     }

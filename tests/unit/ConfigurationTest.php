@@ -6,7 +6,7 @@ use MattFerris\Configuration\LocatorInterface;
 use MattFerris\Configuration\ResourceInterface;
 use MattFerris\Configuration\LoaderInterface;
 
-class ConfigurationTest extends PHPUnit_Framework_TestCase
+class ConfigurationTest extends PHPUnit\Framework\TestCase
 {
     public function makeResource()
     {
@@ -83,6 +83,9 @@ class ConfigurationTest extends PHPUnit_Framework_TestCase
      */
     public function testLoadWithNonExistentResource()
     {
+        $this->expectException(MattFerris\Configuration\ResourceNotFoundException::class);
+        $this->expectExceptionMessage('resource(s) "foo.php" could not be found');
+
         $locator = $this->createMock(LocatorInterface::class);
         $locator->expects($this->once())
             ->method('locate')
@@ -140,6 +143,9 @@ class ConfigurationTest extends PHPUnit_Framework_TestCase
      */
     public function testGetWithNonExistentKey()
     {
+        $this->expectException(MattFerris\Configuration\KeyDoesNotExistException::class);
+        $this->expectExceptionMessage('key "foo" does not exist');
+
         $locator = $this->createMock(LocatorInterface::class);
         $loader = $this->createMock(LoaderInterface::class);
         $config = new Configuration($locator, $loader);
@@ -156,6 +162,9 @@ class ConfigurationTest extends PHPUnit_Framework_TestCase
      */
     public function testGetWithNonExistentCompoundKey()
     {
+        $this->expectException(MattFerris\Configuration\KeyDoesNotExistException::class);
+        $this->expectExceptionMessage('key "foo.bar" does not exist');
+
         $locator = $this->createMock(LocatorInterface::class);
         $loader = $this->createMock(LoaderInterface::class);
         $config = new Configuration($locator, $loader);

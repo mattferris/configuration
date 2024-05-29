@@ -4,7 +4,7 @@ use MattFerris\Configuration\Loaders\JsonLoader;
 use MattFerris\Configuration\Resources\FileResourceInterface;
 use org\bovigo\vfs\vfsStream;
 
-class JsonLoaderTest extends PHPUnit_Framework_TestCase
+class JsonLoaderTest extends PHPUnit\Framework\TestCase
 {
     public function testLoad()
     {

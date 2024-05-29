@@ -4,7 +4,7 @@ use MattFerris\Configuration\Loaders\YamlLoader;
 use MattFerris\Configuration\Resources\FileResourceInterface;
 use org\bovigo\vfs\vfsStream;
 
-class YamlLoaderTest extends PHPUnit_Framework_TestCase
+class YamlLoaderTest extends PHPUnit\Framework\TestCase
 {
     public function testLoad()
     {

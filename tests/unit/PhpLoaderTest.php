@@ -4,7 +4,7 @@ use MattFerris\Configuration\Loaders\PhpLoader;
 use MattFerris\Configuration\Resources\FileResourceInterface;
 use org\bovigo\vfs\vfsStream;
 
-class PhpLoaderTest extends PHPUnit_Framework_TestCase
+class PhpLoaderTest extends PHPUnit\Framework\TestCase
 {
     public function testLoad()
     {

@@ -3,7 +3,7 @@
 use MattFerris\Configuration\Resources\FileResource;
 use org\bovigo\vfs\vfsStream;
 
-class FileResourceTest extends PHPUnit_Framework_TestCase
+class FileResourceTest extends PHPUnit\Framework\TestCase
 {
     public function testConstruct()
     {
@@ -21,6 +21,9 @@ class FileResourceTest extends PHPUnit_Framework_TestCase
      */
     public function testConstructWithNonExistentPath()
     {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('path "vfs://root/bar.php" does not exist');
+
         $file = new FileResource(vfsStream::url('root').'/bar.php');
     }
 }
