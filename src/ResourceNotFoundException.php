@@ -28,7 +28,7 @@ class ResourceNotFoundException extends Exception
      */
     public function __construct($resources)
     {
-        $this->resource = $resources;
+        $this->resources = $resources;
         $msg = 'resource(s) "'.implode(', ', $resources).'" could not be found';
         parent::__construct($msg);
     }
